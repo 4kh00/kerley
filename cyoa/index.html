@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Archive</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+            transition: background-color 0.5s;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.5s;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        .document-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .document-list li {
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+            transition: background-color 0.3s;
+            cursor: pointer; /* Change cursor to pointer on hover */
+        }
+
+        .document-list li:hover {
+            background-color: #f9f9f9;
+        }
+
+        .document-list li a {
+            text-decoration: none;
+            color: #000;
+            font-weight: bold;
+        }
+
+        .document-list li span {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        /* Hackerman theme */
+        .hackerman {
+            background-color: #0f0f0f;
+            color: #66ff66;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .hackerman .container {
+            background-color: #1a1a1a;
+            box-shadow: 0 0 10px rgba(102, 255, 102, 0.5);
+        }
+
+        .hackerman h1 {
+            color: #66ff66;
+        }
+        .hackerman h2 {
+            color: #66ff66;
+        }
+
+        .hackerman .document-list li {
+            border-color: #444;
+        }
+
+        .hackerman .document-list li:hover {
+            background-color: #222;
+        }
+
+        .hackerman .document-list li a {
+            color: #66ff66;
+        }
+
+        .hackerman .document-list li span {
+            color: #888;
+        }
+
+        .back-button {
+            display: block;
+            margin-top: 20px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .back-button:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>The Kerley Archives</h1>
+    <h2>CYOAs</h2>
+        <button onclick="goBack()" class="back-button">Back</button>
+    <ul class="document-list">
+        <li>
+            <a href="./example.html">Image_1.jpg</a>
+            <span>Desc Here</span>
+        </li>
+         <!-- Add more documents as needed -->
+    </ul>
+
+</div>
+
+<script>
+    // Check if theme preference is stored in a cookie
+    const themePreference = getCookie('themePreference');
+    if (themePreference === 'hackerman') {
+        document.body.classList.add('hackerman');
+    }
+
+    function toggleTheme() {
+        const body = document.body;
+        const currentTheme = body.classList.contains('hackerman') ? 'hackerman' : 'default';
+        const newTheme = currentTheme === 'hackerman' ? 'default' : 'hackerman';
+        body.classList.toggle('hackerman');
+
+        // Save theme preference as a cookie
+        setCookie('themePreference', newTheme, 365);
+    }
+
+    function goBack() {
+        window.location.href = '../index.html';
+    }
+
+    function setCookie(name, value, days) {
+        const date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        const expires = "expires=" + date.toUTCString();
+        document.cookie = name + "=" + value + ";" + expires + ";path=/";
+    }
+
+    function getCookie(name) {
+        const cookieName = name + "=";
+        const decodedCookie = decodeURIComponent(document.cookie);
+        const cookieArray = decodedCookie.split(';');
+        for (let i = 0; i < cookieArray.length; i++) {
+            let cookie = cookieArray[i];
+            while (cookie.charAt(0) === ' ') {
+                cookie = cookie.substring(1);
+            }
+            if (cookie.indexOf(cookieName) === 0) {
+                return cookie.substring(cookieName.length, cookie.length);
+            }
+        }
+        return "";
+    }
+
+    function goToDocument(url) {
+        window.location.href = url;
+    }
+</script>
+
+</body>
+</html>

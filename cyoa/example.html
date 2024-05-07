@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Viewer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+            color: #333;
+            transition: background-color 0.5s;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.5s;
+            position: relative;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .image-container {
+            text-align: center;
+            margin-top: 20px;
+            position: relative;
+        }
+
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ccc;
+        }
+
+        .fullscreen-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .fullscreen-button:hover {
+            background-color: #555;
+        }
+
+        /* Hackerman theme */
+        body.hackerman-mode {
+            background-color: #0f0f0f;
+            color: #66ff66;
+        }
+
+        .container.hackerman-mode {
+            background-color: #1a1a1a;
+            box-shadow: 0 0 10px rgba(102, 255, 102, 0.5);
+        }
+
+        h1.hackerman-mode {
+            color: #66ff66;
+        }
+
+        .image-container.hackerman-mode img {
+            border: 1px solid #66ff66;
+        }
+
+        .fullscreen-button.hackerman-mode {
+            background-color: #66ff66;
+            color: #0f0f0f;
+        }
+
+        .fullscreen-button.hackerman-mode:hover {
+            background-color: #33cc33;
+        }
+
+        body.hackerman-mode {
+            font-family: 'Courier New', Courier, monospace;
+        }
+    </style>
+</head>
+<body class="default-mode">
+
+<div class="container">
+    <h1>Experiment Results</h1>
+    <div class="image-container">
+        <img src="result.gif" alt="Your Image">
+        <button class="fullscreen-button" onclick="goBack()">Back</button>
+    </div>
+</div>
+
+<script>
+    // Check if theme preference is stored in a cookie
+    const themePreference = getCookie('themePreference');
+    if (themePreference === 'hackerman') {
+        document.body.classList.add('hackerman-mode');
+        document.querySelector('.container').classList.add('hackerman-mode');
+        document.querySelector('h1').classList.add('hackerman-mode');
+        document.querySelector('.image-container').classList.add('hackerman-mode');
+        document.querySelector('.fullscreen-button').classList.add('hackerman-mode');
+    }
+
+    function toggleFullscreen() {
+        const elem = document.documentElement;
+        if (!document.fullscreenElement) {
+            elem.requestFullscreen().catch(err => {
+                alert(`Error attempting to enable full-screen mode: ${err.message} (${err.name})`);
+            });
+        } else {
+            document.exitFullscreen();
+        }
+    }
+    function goBack() {
+        window.location.href = './index.html';
+    }
+
+    function getCookie(name) {
+        const cookieName = name + "=";
+        const decodedCookie = decodeURIComponent(document.cookie);
+        const cookieArray = decodedCookie.split(';');
+        for (let i = 0; i < cookieArray.length; i++) {
+            let cookie = cookieArray[i];
+            while (cookie.charAt(0) === ' ') {
+                cookie = cookie.substring(1);
+            }
+            if (cookie.indexOf(cookieName) === 0) {
+                return cookie.substring(cookieName.length, cookie.length);
+            }
+        }
+        return "";
+    }
+</script>
+
+</body>
+</html>
