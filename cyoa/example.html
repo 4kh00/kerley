@@ -54,6 +54,18 @@
             font-size: 14px;
             cursor: pointer;
         }
+        .fulscreen-button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            font-size: 14px;
+            cursor: pointer;
+        }
 
         .fullscreen-button:hover {
             background-color: #555;
@@ -79,12 +91,8 @@
         }
 
         .fullscreen-button.hackerman-mode {
-            background-color: #66ff66;
-            color: #0f0f0f;
-        }
-
-        .fullscreen-button.hackerman-mode:hover {
-            background-color: #33cc33;
+            background-color: #333;
+            color: #fff;
         }
 
         body.hackerman-mode {
@@ -98,7 +106,8 @@
     <h1>Experiment Results</h1>
     <div class="image-container">
         <img src="result.gif" alt="Your Image">
-        <button class="fullscreen-button" onclick="goBack()">Back</button>
+        <button class="fullscreen-button" onclick="toggleFullscreen()">Fullscreen</button>
+        <button class="fulscreen-button" onclick="goBack()">Back</button>
     </div>
 </div>
 
@@ -114,9 +123,9 @@
     }
 
     function toggleFullscreen() {
-        const elem = document.documentElement;
+        const image = document.querySelector('.image-container img');
         if (!document.fullscreenElement) {
-            elem.requestFullscreen().catch(err => {
+            image.requestFullscreen().catch(err => {
                 alert(`Error attempting to enable full-screen mode: ${err.message} (${err.name})`);
             });
         } else {
